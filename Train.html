@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+ 
+  <head>
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js" ></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+ <body>
+     <div id="root">
+
+        <script type="text/babel">
+            
+            class Product extends React.Component {
+                constructor(props) {
+                    super(props)
+                    this.state = {qty: 0}
+                }
+
+                buy() {
+                    this.setState({qty: this.state.qty +1})
+                    this.props.handleTotal(this.props.price)
+                }
+
+                show() {
+                    this.props.handleShow(this.props.name)
+                }
+
+                render() {
+                    return (
+                        <div>
+                            
+                            <p>{this.props.name} - ${this.props.price}</p>
+                            <button onClick={this.buy.bind(this)} >Buy</button>
+                            <button onClick={this.show.bind(this)} >Show</button>
+                            <h3>Qty: {this.state.qty} item(s)</h3>
+                            <hr/>
+                        
+                        </div>
+                        
+                    )
+                }
+            }
+
+            class Total extends React.Component {
+                render() {
+                    return (
+                        <div>
+                        <h3>Total Cash: $</h3>
+                        </div>
+                    )
+                }
+            }
+
+            class ProductList extends React.Component {
+                constructor(props) {
+                    super(props)
+                    this.state = {total: 0}
+                }
+
+                calculateTotal() {
+                    this.setState({total: this.state.total +price})
+                }
+
+               showProduct(name) {
+                   alert("You selected " +name);
+               }
+
+                render() {
+                    return (
+                        <div>
+                        <Product name="Android" price={199}
+                            handleShow={this.showProduct}
+                            handleTotal={this.calculateTotal}/>
+                        <Product name="Apple" price={125}
+                            handleShow={this.showProduct}
+                            handleTotal={this.calculateTotal}/>
+                        <Product name="Nokia" price={98} 
+                            handleShow={this.showProduct}
+                            handleTotal={this.calculateTotal}/>
+                        <Total total={this.state.total}/>
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render(<ProductList/>, document.getElementById("root"));
+
+        </script>
+
+     </div>
+ </body>
