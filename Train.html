@@ -26,6 +26,7 @@
 
                 show() {
                     this.props.handleShow(this.props.name)
+                    this.props.handleShowTotal();
                 }
 
                 render() {
@@ -60,8 +61,12 @@
                     this.state = {total: 0}
                 }
 
-                calculateTotal() {
+                calculateTotal(price) {
                     this.setState({total: this.state.total +price})
+                }
+
+                showtotal(){
+                    alert(this.state.total);
                 }
 
                showProduct(name) {
@@ -73,13 +78,16 @@
                         <div>
                         <Product name="Android" price={199}
                             handleShow={this.showProduct}
-                            handleTotal={this.calculateTotal}/>
+                            handleTotal={this.calculateTotal}
+                            handleShowTotal={this.showtotal}/>
                         <Product name="Apple" price={125}
                             handleShow={this.showProduct}
-                            handleTotal={this.calculateTotal}/>
+                            handleTotal={this.calculateTotal}
+                            handleShowTotal={this.showtotal}/>
                         <Product name="Nokia" price={98} 
                             handleShow={this.showProduct}
-                            handleTotal={this.calculateTotal}/>
+                            handleTotal={this.calculateTotal}
+                            handleShowTotal={this.showtotal}/>
                         <Total total={this.state.total}/>
                         </div>
                     )
