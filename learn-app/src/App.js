@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Total from './Total'
 import ProductForm from './ProductForm';
+import Pay from './Pay';
 
 
 class App extends Component {
@@ -16,6 +17,10 @@ class App extends Component {
 
   show() {
     this.props.handleShow(this.props.name)
+  }
+
+  payment() {
+    this.props.handlePayment()
   }
   
   render() {
@@ -58,21 +63,25 @@ class App extends Component {
       alert("You selected " +name);
     }
 
+    showPayment() {
+      alert("This is a payment " +this.state.total);
+    }
+
     render() {
       var component = this;
-      var products = this.state.product.map(function(product) {
-        return (
+      const products = this.state.product.map( (product) =>
           <App name={product.name} price={product.price}
             handleShow={component.showProduct}
-            handleTotal={component.calculateTotal.bind(component)}/>
+            handleTotal={component.calculateTotal.bind(component)}
+            handlePayment={this.showPayment.bind(this)} />
         )
-      }
-      )
+  
       return (
         <div>
           <ProductForm handleCreate={this.createProduct.bind(this)}/>
           {products}
           <Total total={this.state.total}/>
+          <Pay/>
         </div>
       )
     }
