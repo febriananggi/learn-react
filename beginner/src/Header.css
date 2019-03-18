@@ -1,0 +1,15 @@
+
+.container-fluid {
+    background-color: rgb(18, 18, 252);
+    height: 50px;
+}
+
+.myInput {
+    float: right;
+    margin: 10px;
+}
+
+form {
+    margin-right: 10px;
+}
+

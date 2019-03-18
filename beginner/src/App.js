@@ -8,6 +8,7 @@ import AsusVivo from './AsusVivo.jpg';
 import AppleMacbookPro from './AppleMacbookPro.jpg';
 import HP from './HP.jpeg';
 import SamsungNotebook from './SamsungNotebook.jpg';
+import Header from './Header';
 
 class App extends React.Component {
   constructor(props) {
@@ -46,24 +47,38 @@ class App extends React.Component {
   class ProductList extends React.Component {
     constructor(props) {
       super(props)
-      this.state = {total: 0}
+      this.state = {
+                total: 0,
+                productList: [
+                { name: "Lenovo", price: 5000000.00, image: Lenovo },
+                { name: "Asus Vivo", price: 5000000.00, image: AsusVivo },
+                { name: "Apple MacBook Pro", price: 5000000.00, image: AppleMacbookPro }, 
+                { name: "Samsung NoteBook", price: 5000000.00, image: SamsungNotebook },
+                ]  
+              }
     }
 
       calculateTotal(price) {
-        this.setState({total: this.state.total +price})
+        this.setState({
+          total: this.state.total +price})
+      }
+
+      createProduct(product) {
+        this.setState({
+          productList: this.state.productList.concat(product)
+        })
       }
 
     render() {
+      var component = this;
+      const products = this.state.productList.map( (product) => 
+                      <App name={product.name} price={product.price} image={product.image}
+                        handleTotal={component.calculateTotal.bind(component)} />
+      )
       return (
         <div>
-          <App name="Lenovo" price="5.000.000" image={Lenovo}
-            handleTotal={this.calculateTotal}/>
-          <App name="Asus VivoBook" price="5.000.000" image={AsusVivo}
-            handleTotal={this.calculateTotal.bind(this)}/>
-          <App name="Apple Macbook Pro" price="5.000.000" image={AppleMacbookPro}
-            handleTotal={this.calculateTotal.bind(this)}/>
-          <App name="Samsung NoteBook" price="5.000.000" image={SamsungNotebook}
-            handleTotal={this.calculateTotal.bind(this)}/>
+          <Header handleCreate={this.createProduct.bind(this)}/>
+          {products}
           <Footer total={this.state.total}/>
         </div>
       )
